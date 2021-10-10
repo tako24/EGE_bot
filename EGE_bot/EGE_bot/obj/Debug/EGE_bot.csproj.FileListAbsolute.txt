@@ -1,0 +1,16 @@
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\EGE_bot.exe.config
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\EGE_bot.exe
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\EGE_bot.pdb
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Newtonsoft.Json.dll
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Telegram.Bot.dll
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Newtonsoft.Json.xml
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Telegram.Bot.xml
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.csproj.AssemblyReference.cache
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.csproj.CoreCompileInputs.cache
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.csproj.CopyComplete
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.exe
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.pdb
