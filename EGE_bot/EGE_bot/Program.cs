@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace inf_sdamgia_bot
 {
@@ -14,17 +17,33 @@ namespace inf_sdamgia_bot
             client = new TelegramBotClient(Token);
             client.StartReceiving();
             client.OnMessage += OnMessageHandler;
-            Console.ReadLine();
             client.StopReceiving();
-            Console.WriteLine("Hello World!");
+            var x = File.ReadAllLines("Questions/Test.txt");
+            Console.WriteLine(x[0]);
+            Console.ReadLine();
         }
 
-        private static void OnMessageHandler(object sender, MessageEventArgs e)
+        private async static void OnMessageHandler(object sender, MessageEventArgs e)
         {
             var message = e.Message;
             if (message != null)
                 Console.WriteLine("Check");
+            await client.SendTextMessageAsync(message.Chat.Id, message.Text, replyMarkup: GetButtons());
 
+        }
+        private static IReplyMarkup GetButtons()
+        {
+            return new ReplyKeyboardMarkup
+            {
+                Keyboard = new List<List<KeyboardButton>>
+                {
+                    new List<KeyboardButton>{ new KeyboardButton { Text = "fsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"} },
+                    new List<KeyboardButton>{ new KeyboardButton { Text = "342"} },
+                    new List<KeyboardButton>{ new KeyboardButton { Text = "fdfsafasd"} },
+                    new List<KeyboardButton>{ new KeyboardButton { Text = "fsdfasdfasdffasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"} },
+                    new List<KeyboardButton>{ new KeyboardButton { Text = "234123423541235134523451254523452345134"} }
+                }
+            };
         }
     }
 }
