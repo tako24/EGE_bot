@@ -20,6 +20,15 @@ namespace EGE_bot
                 AllQuestions.Add(new Task(temp));
             }
         }
+
+        public Task this[int index]
+        {
+            get
+            {
+                return AllQuestions[index];
+            }
+        }
+
         public Task GetQuastion()
         {
             throw new ArgumentException();

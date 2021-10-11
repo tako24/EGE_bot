@@ -16,8 +16,16 @@ namespace EGE_bot
         {
             Question = task[0];
             Answer = task[1];
-            PicturePath = task[2];
-            Theme = task[3];
+            Theme = task[2];
+            PicturePath = task[3];
+
+        }
+        public Task(string question, string answer, string theme, string picturePath = "")
+        {
+            Question = question;
+            Answer = answer;
+            PicturePath = picturePath;
+            Theme = theme;
         }
         public bool Check(string result)
         {
