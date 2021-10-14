@@ -11,9 +11,11 @@ namespace EGE_bot
     class Questions
     {
         public List<Task> AllQuestions { get; }
+        private int currentIndex;
         public Questions( string jsonText)
         {
             AllQuestions = new List<Task>();
+            currentIndex = -1;
             var parsed = JsonConvert.DeserializeObject<Dictionary<string, Task>>(jsonText);
             foreach (var task in parsed.Values)
             {
@@ -34,7 +36,8 @@ namespace EGE_bot
 
         public Task GetQuastion()
         {
-            throw new ArgumentException();
+            currentIndex++;
+            return AllQuestions[currentIndex] ;
         }
     }
 }
