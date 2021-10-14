@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,10 +51,11 @@ namespace EGE_bot
         Task task0 = new Task("question0", "answer0", "theme0", "picturePath0");
         Task task1 = new Task("question1", "answer1", "theme1", "picturePath1");
         Task task2 = new Task(str0);
+        Questions questions = new Questions(File.ReadAllText(@"D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Questions\CorrectJsonFormat.json"));
         [Test]
-        public void Indexator()
+        public void IndexerGetter_Fails_WhenIndexIsWrong()
         {
-            var questions = new Questions();
+            Assert.Catch<ArgumentException>(() => { var a = questions[15]; });
         }
     }
 

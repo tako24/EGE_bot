@@ -8,10 +8,10 @@ namespace EGE_bot
 {
     class Task
     {
-        public string Question { get; }
-        public string Answer { get; }
-        public string PicturePath { get; }
-        public string Theme { get; }
+        public string Question { set; get; }
+        public string Answer { set; get; }
+        public string PicturePath { set; get; }
+        public string Theme { set; get; }
         public Task(string[] task)
         {
             Question = task[0];
@@ -20,6 +20,11 @@ namespace EGE_bot
             PicturePath = task[3];
 
         }
+        public Task()
+        {
+
+        }
+
         public Task(string question, string answer, string theme, string picturePath = "")
         {
             Question = question;
@@ -29,7 +34,8 @@ namespace EGE_bot
         }
         public bool Check(string result)
         {
-            return Answer == result;
+            return Answer.Trim() == result.Trim();
         }
+        public override string ToString() => string.Format("{0}\n{1}\n{2}\n{3}", Question, Answer, Theme, PicturePath);
     }
 }

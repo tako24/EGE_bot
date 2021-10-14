@@ -4,8 +4,8 @@ using System.IO;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.ReplyMarkups;
-
-namespace inf_sdamgia_bot
+using Newtonsoft.Json;
+namespace EGE_bot
 {
 
     class Program
@@ -14,12 +14,13 @@ namespace inf_sdamgia_bot
         private static TelegramBotClient client;
         static void Main(string[] args)
         {
-            client = new TelegramBotClient(Token);
-            client.StartReceiving();
-            client.OnMessage += OnMessageHandler;
-            client.StopReceiving();
-            var x = File.ReadAllLines("Questions/Test.txt");
-            Console.WriteLine(x[0]);
+            //var client = new TelegramBotClient(Token);
+            //client.StartReceiving();
+            //client.OnMessage += OnMessageHandler;
+            //client.StopReceiving();
+            var jsonText = File.ReadAllText("Questions/CorrectJsonFormat.json");
+            var que = new Questions(jsonText);
+            Console.WriteLine(que[0].ToString());
             Console.ReadLine();
         }
 
@@ -37,7 +38,7 @@ namespace inf_sdamgia_bot
             {
                 Keyboard = new List<List<KeyboardButton>>
                 {
-                    new List<KeyboardButton>{ new KeyboardButton { Text = "fsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"} },
+                    new List<KeyboardButton>{ new KeyboardButton { Text = ""} },
                     new List<KeyboardButton>{ new KeyboardButton { Text = "342"} },
                     new List<KeyboardButton>{ new KeyboardButton { Text = "fdfsafasd"} },
                     new List<KeyboardButton>{ new KeyboardButton { Text = "fsdfasdfasdffasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"} },
