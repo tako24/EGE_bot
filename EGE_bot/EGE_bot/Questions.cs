@@ -11,6 +11,7 @@ namespace EGE_bot
     class Questions
     {
         public List<Task> AllQuestions { get; }
+        public List<string> Themes { get; }
         private int currentIndex;
         public Questions( string jsonText)
         {
@@ -22,6 +23,7 @@ namespace EGE_bot
                 AllQuestions.Add(task);
             }
         }
+        
         public void Add(Task task)
         {
             AllQuestions.Add(task);
