@@ -17,13 +17,18 @@ namespace EGE_bot
         static void Main(string[] args)
         {
             var client = new TelegramBotClient(Token);
-            client.StartReceiving();
-            client.OnMessage += OnMessageHandler;
-            var jsonText = File.ReadAllText("Questions/CorrectJsonFormat.json");
-            var que = new Questions(jsonText);
-            //Console.WriteLine(que[0].ToString());
+            //client.StartReceiving();
+            //client.OnMessage += OnMessageHandler;
+
+            var a = new Questions("Выбор кода при неиспользуемых сигналах", "Шифрование по известному коду и перевод в различные СС", "Передача информации. Выбор кода");
+            foreach (var item in a.AllQuestions)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.WriteLine(a.AllQuestions.Count());
+            
             Console.ReadLine();
-            client.StopReceiving();
+            //client.StopReceiving();
         }
 
         private async static void OnMessageHandler(object sender, MessageEventArgs e)

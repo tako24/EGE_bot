@@ -12,26 +12,23 @@ namespace EGE_bot
         public string Answer { set; get; }
         public string PicturePath { set; get; }
         public string Theme { set; get; }
-        public Task(string[] task)
-        {
-            Question = task[0];
-            Answer = task[1];
-            Theme = task[2];
-            PicturePath = task[3];
+        public string Solution { set; get; }
 
-        }
-        public Task()
-        {
+        //public Task(string[] task)
+        //{
+        //    Question = task[0];
+        //    Answer = task[1];
+        //    Theme = task[2];
+        //    PicturePath = task[3];
+        //}
 
-        }
-
-        public Task(string question, string answer, string theme, string picturePath = "")
-        {
-            Question = question;
-            Answer = answer;
-            PicturePath = picturePath;
-            Theme = theme;
-        }
+        //public Task(string question, string answer, string theme, string picturePath = "")
+        //{
+        //    Question = question;
+        //    Answer = answer;
+        //    PicturePath = picturePath;
+        //    Theme = theme;
+        //}
         public bool Check(string result)
         {
             return Answer.Trim() == result.Trim();

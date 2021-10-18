@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,36 +8,37 @@ namespace EGE_bot
 {
     class Questions
     {
-        public List<Task> AllQuestions { get; }
-        public List<string> Themes { get; }
         private int currentIndex;
-        public Questions( string jsonText)
+        public List<Task> AllQuestions { get; }
+
+
+        public Questions(params string[] themes)
         {
-            AllQuestions = new List<Task>();
             currentIndex = -1;
-            var parsed = JsonConvert.DeserializeObject<Dictionary<string, Task>>(jsonText);
-            foreach (var task in parsed.Values)
+            AllQuestions = new List<Task>();
+            foreach (var question in Data.AllQuestions)
             {
-                AllQuestions.Add(task);
+                if (themes.Contains(question.Theme))
+                {
+                    AllQuestions.Add(question);
+                }
             }
         }
-        
-        public void Add(Task task)
+
+        public Task GetQuestion()
         {
-            AllQuestions.Add(task);
+            currentIndex++;
+            if (currentIndex == AllQuestions.Count())
+                currentIndex = 0;
+            return AllQuestions[currentIndex];
         }
+
         public Task this[int index]
         {
             get
             {
                 return AllQuestions[index];
             }
-        }
-
-        public Task GetQuastion()
-        {
-            currentIndex++;
-            return AllQuestions[currentIndex] ;
         }
     }
 }
