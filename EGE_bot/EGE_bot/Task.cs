@@ -10,9 +10,9 @@ namespace EGE_bot
     {
         public string Question { set; get; }
         public string Answer { set; get; }
-        public string PicturePath { set; get; }
         public string Theme { set; get; }
         public string Solution { set; get; }
+        public string PicturePath { set; get; }
 
         //public Task(string[] task)
         //{

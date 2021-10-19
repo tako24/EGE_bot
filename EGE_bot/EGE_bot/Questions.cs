@@ -16,13 +16,14 @@ namespace EGE_bot
         {
             currentIndex = -1;
             AllQuestions = new List<Task>();
-            foreach (var question in Data.AllQuestions)
-            {
-                if (themes.Contains(question.Theme))
-                {
-                    AllQuestions.Add(question);
-                }
-            }
+            AllQuestions = Data.AllQuestions.Where(theme => themes.Contains(theme.Theme)).Select(theme => theme).ToList();
+            //foreach (var question in Data.AllQuestions)
+            //{
+            //    if (themes.Contains(question.Theme))
+            //    {
+            //        AllQuestions.Add(question);
+            //    }
+            //}
         }
 
         public Task GetQuestion()

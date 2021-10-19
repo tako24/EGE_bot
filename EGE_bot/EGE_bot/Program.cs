@@ -20,7 +20,7 @@ namespace EGE_bot
             //client.StartReceiving();
             //client.OnMessage += OnMessageHandler;
 
-            var a = new Questions("Выбор кода при неиспользуемых сигналах", "Шифрование по известному коду и перевод в различные СС", "Передача информации. Выбор кода");
+            var a = new Questions( "Шифрование по известному коду и перевод в различные СС", "Передача информации. Выбор кода");
             foreach (var item in a.AllQuestions)
             {
                 Console.WriteLine(item.ToString());
