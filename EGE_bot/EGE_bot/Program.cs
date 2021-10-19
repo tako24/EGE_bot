@@ -1,57 +1,40 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.IO;
-using Telegram.Bot;
-using Telegram.Bot.Args;
-using Telegram.Bot.Types.ReplyMarkups;
 using Newtonsoft.Json;
+using System.Threading;
+using sysTask = System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Exceptions;
+using Telegram.Bot.Types;
+using Telegram.Bot.Extensions.Polling;
 
 namespace EGE_bot
 {
 
     class Program
     {
-        private static string Token { get; } = "2061132160:AAHRnhICjh2hP3RlwXUopKKDZ1aBx3ZRfMg";
         private static TelegramBotClient client;
-        static void Main(string[] args)
+        private static string Token { get; } = "2061132160:AAHRnhICjh2hP3RlwXUopKKDZ1aBx3ZRfMg";
+        public static async sysTask.Task Main()
         {
-            var client = new TelegramBotClient(Token);
-            //client.StartReceiving();
-            //client.OnMessage += OnMessageHandler;
+            client = new TelegramBotClient(Token);
+            CancellationTokenSource cts = new CancellationTokenSource();
+            client.StartReceiving(new DefaultUpdateHandler(Handlers.HandleUpdateAsync, Handlers.HandleErrorAsync),
+                               cts.Token);
 
-            var a = new Questions( "Шифрование по известному коду и перевод в различные СС", "Передача информации. Выбор кода");
+            var a = new Questions("Шифрование по известному коду и перевод в различные СС", "Передача информации. Выбор кода");
             foreach (var item in a.AllQuestions)
             {
                 Console.WriteLine(item.ToString());
             }
-            Console.WriteLine(a.AllQuestions.Count());
             
+            
+            Console.WriteLine(a.AllQuestions.Count());
+            Console.WriteLine(a.AllQuestions);
+
             Console.ReadLine();
-            //client.StopReceiving();
+            cts.Cancel();
         }
 
-        private async static void OnMessageHandler(object sender, MessageEventArgs e)
-        {
-            var message = e.Message;
-            if (message != null)
-                Console.WriteLine("Check");
-            await client.SendTextMessageAsync(message.Chat.Id, message.Text, replyMarkup: GetButtons());
-
-        }
-        private static IReplyMarkup GetButtons()
-        {
-            return new ReplyKeyboardMarkup
-            {
-                Keyboard = new List<List<KeyboardButton>>
-                {
-                    new List<KeyboardButton>{ new KeyboardButton { Text = ""} },
-                    new List<KeyboardButton>{ new KeyboardButton { Text = "342"} },
-                    new List<KeyboardButton>{ new KeyboardButton { Text = "fdfsafasd"} },
-                    new List<KeyboardButton>{ new KeyboardButton { Text = "fsdfasdfasdffasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"} },
-                    new List<KeyboardButton>{ new KeyboardButton { Text = "234123423541235134523451254523452345134"} }
-                }
-            };
-        }
     }
 }
