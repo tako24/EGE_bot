@@ -35,6 +35,7 @@ namespace EGE_bot
             {
                 UpdateType.Message => BotOnMessageReceived(botClient, update.Message),
                 UpdateType.EditedMessage => BotOnMessageReceived(botClient, update.EditedMessage),
+                UpdateType.CallbackQuery => BotOnCallbackQueryReceived(botClient, update.CallbackQuery),
                 _ => UnknownUpdateHandlerAsync(botClient, update)
             };
 
@@ -48,26 +49,12 @@ namespace EGE_bot
             }
         }
 
-        //Куда вынести логику с созданием команд (считывание из файла)? Создать еще файл с командами?-тогда в файле 
-        //большая часть информациии будет дублироваться (кнопки с названиями тем). Если не создавать новый файл, то как создавать кнопки вроде start?
-        //Использовать наследование/интерфейсы, чтобы разделить кнопки по смыслу?
-        //public List<CommandInfo> CreateCommands(texts, names, buttons)
-        //{
-        //    var comInfList = new List<CommandInfo>()
-        //    for (int i = 0; i < texts.Length; i++)
-        //    {
-        //        var CommandInfo = new CommandInfo(text, name, buttons);
-        //        comInfList.Add(CommandInfo);
-        //    }
-        //    return comInfList;
-        //}
-
-        private static async sysTask.Task BotOnMessageReceived(ITelegramBotClient botClient, Message message)
+        private static async sysTask.Task BotOnMessageReceived(ITelegramBotClient botClient, Message message) // можно вместо команд сделать inline кнопки с командами 
         {
             Console.WriteLine($"Receive message type: {message.Type}");
             if (message.Type != MessageType.Text)
                 return;
-            var commandsDict = Data.CommandsDict;
+            var commandsDict = CommandsData.CommandsDict;
 
 
             var action = (message.Text.Split(' ').First()) switch
@@ -81,7 +68,7 @@ namespace EGE_bot
             var sentMessage = await action;
 
 
-            static async sysTask.Task<Message> SendInlineKeyboard(ITelegramBotClient botClient, Message message, CommandInfoWithInlineKeyBoard commandInfo)
+            static async sysTask.Task<Message> SendInlineKeyboard(ITelegramBotClient botClient, Message message, CommandInfoWithInlineKeyboard commandInfo)
             {
                 return await botClient.SendTextMessageAsync(chatId: message.Chat.Id,
                                                             text: String.Format("{0}", commandInfo.text),
@@ -100,6 +87,31 @@ namespace EGE_bot
                                                             text: usage,
                                                             replyMarkup: new ReplyKeyboardRemove());
             }
+        }
+
+        private static async sysTask.Task BotOnCallbackQueryReceived(ITelegramBotClient botClient, CallbackQuery callbackQuery)
+        {
+            //await botClient.AnswerCallbackQueryAsync(
+            //    callbackQueryId: callbackQuery.Id,
+            //    text: $"Received {callbackQuery.Data}");
+
+            var commandsDict = CommandsData.CommandsDict;
+            var gf = commandsDict["/theme"];
+
+            if (callbackQuery.Data == "/tasknumber") // пример того, как настраивать ответ на нажатие кнопки. Нужно реализовать так, чтобы работало с большим количеством кнопок.
+            {
+                await botClient.SendTextMessageAsync(
+                chatId: callbackQuery.Message.Chat.Id,
+                text: gf.text,
+                replyMarkup: gf.inlineKeyboard); //можно добавить кнопку назад
+            }
+            else {
+                await botClient.SendTextMessageAsync(
+              chatId: callbackQuery.Message.Chat.Id,
+              text: $"Received {callbackQuery.Data}");
+            }
+
+           
         }
 
 

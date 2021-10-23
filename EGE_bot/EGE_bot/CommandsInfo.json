@@ -2,6 +2,7 @@
   "Command1": {
     "name": "/start",
     "text": "Выберите формат",
+    "taskNumber": "0",
     "buttonsTexts": [
       "/fulltest",
       "/tasknumber"
@@ -10,14 +11,16 @@
   "Command2": {
     "name": "/fulltest",
     "text": "?",
+    "taskNumber": "0",
     "buttonsTexts": [
-      "?",
-      "?"
+      "",
+      ""
     ]
   },
   "Command3": {
     "name": "/tasknumber",
     "text": "Выберите номер задания",
+    "taskNumber": "0",
     "buttonsTexts": [
       "1",
       "2",
@@ -35,6 +38,7 @@
   "Command4": {
     "name": "/theme",
     "text": "Выберите тему",
+    "taskNumber" : "1",
     "buttonsTexts": [
       "тема1",
       "тема2",

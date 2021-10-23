@@ -21,17 +21,6 @@ namespace EGE_bot
             CancellationTokenSource cts = new CancellationTokenSource();
             client.StartReceiving(new DefaultUpdateHandler(Handlers.HandleUpdateAsync, Handlers.HandleErrorAsync),
                                cts.Token);
-
-            var a = new Questions("Шифрование по известному коду и перевод в различные СС", "Передача информации. Выбор кода");
-            foreach (var item in a.AllQuestions)
-            {
-                Console.WriteLine(item.ToString());
-            }
-            
-            
-            Console.WriteLine(a.AllQuestions.Count());
-            Console.WriteLine(a.AllQuestions);
-
             Console.ReadLine();
             cts.Cancel();
         }
