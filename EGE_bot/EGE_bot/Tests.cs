@@ -12,11 +12,10 @@ namespace EGE_bot
     class TaskTests
     {
         [Test]
-        public void TaskConstruct()
+        public void SnatchOutOfJson()
         {
-            var task0 = Data.AllQuestions;
-            //Assert.AreEqual("По каналу связи передаются сообщения, содержащие только семь букв: А, Б, Г, И, М, Р, Я. Для передачи используется двоичный код, удовлетворяющий условию Фано. Кодовые слова для некоторых букв известны: А — 010, Б — 00, Г — 101. Какое наименьшее количество двоичных знаков потребуется для кодирования слова МАГИЯ? Примечание.Условие Фано означает, что ни одно кодовое слово не является началом другого кодового слова.", task0.Question);
-            Assert.AreEqual("14", task0[0].Answer); ;
+            var task0 = Data.AllQuestions[0];
+            Assert.AreEqual("14", task0.Answer); ;
         }
 
         [Test]
@@ -26,20 +25,38 @@ namespace EGE_bot
             task0.Answer = "15";
             Assert.AreEqual(true, task0.Check("15"));
         }
+
+        [Test]
+        public void TaskChekAnswer1()
+        {
+            var task0 = Data.AllQuestions[0];
+            Assert.AreEqual(false, task0.Check("15"));
+        }
     }
 
-    //[TestFixture]
-    //class QuestionsTests
-    //{
-    //    static string[] str0 = "question0|answer0|theme0|picturePath0".Split('|');
-    //    Task task0 = new Task("question0", "answer0", "theme0", "picturePath0");
-    //    Task task1 = new Task("question1", "answer1", "theme1", "picturePath1");
-    //    Task task2 = new Task(str0);
-    //    Data questions = new Data(File.ReadAllText(@"D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Questions\CorrectJsonFormat.json"));
-    //    [Test]
-    //    public void IndexerGetter_Fails_WhenIndexIsWrong()
-    //    {
-    //        Assert.Catch<ArgumentException>(() => { var a = questions[15]; });
-    //    }
-    //}
+    [TestFixture]
+    class QuestionsTests
+    {
+        List<Task> task1 = Data.AllQuestions;
+        static string[] str0 = "question0|answer0|theme0|picturePath0".Split('|');
+        [Test]
+        public void IndexerGetter_Fails_WhenIndexIsWrong0()
+        {
+            task1[4].Question = str0[0];
+            task1[4].Answer = str0[1];
+            task1[4].Theme = str0[2];
+            task1[4].PicturePath = str0[3];
+            Assert.AreEqual("theme0", task1[4].Theme);
+        }
+
+        [Test]
+        public void IndexerGetter_Fails_WhenIndexIsWrong1()
+        {
+            task1[4].Question = "question0";
+            task1[4].Answer = "answer0";
+            task1[4].Theme = "theme0";
+            task1[4].PicturePath = "picturePath0";
+            Assert.AreEqual("theme0", task1[4].Theme);
+        }
+    }
 }
