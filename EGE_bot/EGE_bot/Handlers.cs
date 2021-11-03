@@ -68,7 +68,7 @@ namespace EGE_bot
             var sentMessage = await action;
 
 
-            static async sysTask.Task<Message> SendInlineKeyboard(ITelegramBotClient botClient, Message message, CommandInfoWithInlineKeyboard commandInfo)
+            static async sysTask.Task<Message> SendInlineKeyboard(ITelegramBotClient botClient, Message message, CommandInfo commandInfo)
             {
                 return await botClient.SendTextMessageAsync(chatId: message.Chat.Id,
                                                             text: String.Format("{0}", commandInfo.text),
@@ -96,7 +96,7 @@ namespace EGE_bot
             //    text: $"Received {callbackQuery.Data}");
 
             var commandsDict = CommandsData.CommandsDict;
-            var gf = commandsDict["/theme"];
+            var gf = commandsDict["/tasknumber"];
 
             if (callbackQuery.Data == "/tasknumber") // пример того, как настраивать ответ на нажатие кнопки. Нужно реализовать так, чтобы работало с большим количеством кнопок.
             {
