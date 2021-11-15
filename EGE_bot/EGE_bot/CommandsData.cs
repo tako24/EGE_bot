@@ -11,13 +11,17 @@ namespace EGE_bot
 {
     class CommandsData
     {
-        public static Dictionary<string, CommandInfo> CommandsDict { get; }
-
+        //public static Dictionary<string, ReplyKeyboardInfo> CommandsDict { get; }
+        public  static MarkupStorage<ReplyKeyboardInfo> ReplyKeyboardMarkups { get; }
+        public  static MarkupStorage<InlineKeyboardInfo> InlineKeyboardMarkups { get; }
         static CommandsData()
         {
-            CommandsDict = new Dictionary<string, CommandInfo>();
-            var jsonText = File.ReadAllText("Replies/CommandsInfo.json");
-            CommandsDict = JsonConvert.DeserializeObject<Dictionary<string, CommandInfo>>(jsonText);
+            //CommandsDict = new Dictionary<string, ReplyKeyboardInfo>();
+            //ReplyKeyboardMarkups = new MarkupStorage<ReplyKeyboardInfo>();
+            InlineKeyboardMarkups = new MarkupStorage<InlineKeyboardInfo>("Replies/InlineKeyboardInfo.json");
+            ReplyKeyboardMarkups = new MarkupStorage<ReplyKeyboardInfo>("Replies/ReplyKeyboardInfo.json");
+            // var jsonText = File.ReadAllText("Replies/CommandsInfo.json");
+            //CommandsDict = JsonConvert.DeserializeObject<Dictionary<string, ReplyKeyboardInfo>>(jsonText);
         }
     }
 }

@@ -6,23 +6,22 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot;
 
+
 namespace EGE_bot
 {
-    public class CommandInfo // хранит информацию о команде 
+    public class InlineKeyboardInfo : IReplyInfo<InlineKeyboardMarkup>  // хранит информацию о команде 
     {
-        public string name { get; set; }
-        public string text { get; set; }
-        public string taskNumber { get; set; }
-        public InlineKeyboardMarkup inlineKeyboard { get; set; }
+        public string Text { get; set; }
+        //public string taskNumber { get; set; }
+        public InlineKeyboardMarkup Keyboard { get; set; }
 
-        public CommandInfo(string name, string text, string taskNumber, List<string> buttonsTexts) {
-            this.name = name;
-            this.text = text;
-            this.taskNumber = taskNumber;
-            this.inlineKeyboard = CreateReplyMarkup(buttonsTexts);
+        public InlineKeyboardInfo( string text, List<string> buttonsTexts) {
+            this.Text = text;
+            //this.taskNumber = taskNumber;
+            this.Keyboard = CreateMarkup(buttonsTexts);
         }
 
-        private static InlineKeyboardMarkup CreateReplyMarkup(List<string> buttons)
+        private static InlineKeyboardMarkup CreateMarkup(List<string> buttons)
         {
             List<InlineKeyboardButton[]> list = new List<InlineKeyboardButton[]>(); // Создаём массив колонок
             for (int i = 0; i < buttons.Count; ++i)
