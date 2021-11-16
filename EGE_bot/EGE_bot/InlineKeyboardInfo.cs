@@ -9,15 +9,13 @@ using Telegram.Bot;
 
 namespace EGE_bot
 {
-    public class InlineKeyboardInfo : IReplyInfo<InlineKeyboardMarkup>  // хранит информацию о команде 
+    public class InlineKeyboardInfo // хранит информацию о команде 
     {
         public string Text { get; set; }
-        //public string taskNumber { get; set; }
         public InlineKeyboardMarkup Keyboard { get; set; }
 
         public InlineKeyboardInfo( string text, List<string> buttonsTexts) {
             this.Text = text;
-            //this.taskNumber = taskNumber;
             this.Keyboard = CreateMarkup(buttonsTexts);
         }
 

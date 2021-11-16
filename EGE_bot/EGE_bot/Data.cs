@@ -12,7 +12,6 @@ namespace EGE_bot
     static class Data
     {
         public static List<Task> AllQuestions { get; }
-
         static Data()
         {
             AllQuestions = new List<Task>();

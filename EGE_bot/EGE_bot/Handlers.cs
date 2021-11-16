@@ -50,57 +50,41 @@ namespace EGE_bot
             }
         }
 
-        private static async sysTask.Task BotOnMessageReceived(ITelegramBotClient botClient, Message message) // можно вместо команд сделать inline кнопки с командами 
+        private static async sysTask.Task BotOnMessageReceived(ITelegramBotClient botClient, Message message) 
         {
             Console.WriteLine($"Receive message type: {message.Type}");
             if (message.Type != MessageType.Text)
                 return;
-            var flag = true;
-            if (CommandsData.InlineKeyboardMarkups.RepliesDict.ContainsKey(message.Text))
-            {
-                await SendInlineKeyboard(botClient, message, CommandsData.InlineKeyboardMarkups.RepliesDict[message.Text]);
-                flag = false;
-            }
 
-            if (CommandsData.ReplyKeyboardMarkups.RepliesDict.ContainsKey(message.Text))
+            if (CommandsData.InlineKeyboardMarkups.ContainsKey(message.Text))
             {
-                await SendReplyKeyboard(botClient, message, CommandsData.ReplyKeyboardMarkups.RepliesDict[message.Text]);
-                flag = false;
+                await SendInlineKeyboard(botClient, message, CommandsData.InlineKeyboardMarkups[message.Text]);
             }
-         
-            if (flag == true) await UnknownMessage(botClient, message);
-
-            static async sysTask.Task<Message> SendReplyKeyboard(ITelegramBotClient botClient, Message message, ReplyKeyboardInfo repliesDict)
-            {
-                return await botClient.SendTextMessageAsync(message.Chat.Id, repliesDict.Text, replyMarkup: repliesDict.Keyboard);
-            }
-
-            static async sysTask.Task<Message> SendInlineKeyboard(ITelegramBotClient botClient, Message message, InlineKeyboardInfo commandInfo)
+            //else метод проверки ответа на верность 
+            static async sysTask.Task<Message> SendInlineKeyboard(ITelegramBotClient botClient, Message message, InlineKeyboardInfo inlineKeyboardInfo)
             {
                 return await botClient.SendTextMessageAsync(chatId: message.Chat.Id,
-                                                            text: String.Format("{0}", commandInfo.Text),
-                                                          replyMarkup: commandInfo.Keyboard);
+                                                            text: String.Format("{0}", inlineKeyboardInfo.Text),
+                                                          replyMarkup: inlineKeyboardInfo.Keyboard);
             }
 
-            static async sysTask.Task<Message> UnknownMessage(ITelegramBotClient botClient, Message message)
-            {
-                const string usage = "отправьте /start , чтобы начать работу\n";
-
-                return await botClient.SendTextMessageAsync(chatId: message.Chat.Id,
-                                                            text: usage,
-                                                            replyMarkup: new ReplyKeyboardRemove());
-            }
         }
 
         private static async sysTask.Task BotOnCallbackQueryReceived(ITelegramBotClient botClient, CallbackQuery callbackQuery)
         {
-            var flag = true;
-            if (CommandsData.InlineKeyboardMarkups.RepliesDict.ContainsKey(callbackQuery.Data))
+            //var flag = true;
+            if (!CommandsData.InlineKeyboardMarkups.ContainsKey(callbackQuery.Data))
             {
-                await SendInlineKeyboard(botClient, callbackQuery , CommandsData.InlineKeyboardMarkups.RepliesDict[callbackQuery.Data]);
-                flag = false;
+                if (callbackQuery.Data == "Выдать вариант")
+                    return; //метод выдачи варианта
+                else return; //метод выдачи задания
             }
-
+            else
+            {
+                await SendInlineKeyboard(botClient, callbackQuery, CommandsData.InlineKeyboardMarkups[callbackQuery.Data]);
+                //flag = false;
+            }
+       
             static async sysTask.Task<Message> SendInlineKeyboard(ITelegramBotClient botClient, CallbackQuery callbackQuery, InlineKeyboardInfo inlineKeyboardInfo)
             {
                 return await botClient.SendTextMessageAsync(
@@ -108,12 +92,12 @@ namespace EGE_bot
                 text: inlineKeyboardInfo.Text,
                 replyMarkup: inlineKeyboardInfo.Keyboard);
             }
-            if (flag == true)
-            { 
-                await botClient.SendTextMessageAsync(
-                chatId: callbackQuery.Message.Chat.Id,
-                text: $"Received {callbackQuery.Data}");
-            } 
+            //if (flag == true)
+            //{ 
+            //    await botClient.SendTextMessageAsync(
+            //    chatId: callbackQuery.Message.Chat.Id,
+            //    text: $"Received {callbackQuery.Data}");
+            //} 
         }
 
 
