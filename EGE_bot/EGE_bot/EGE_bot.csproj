@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="CommandsData.cs" />
     <Compile Include="Handlers.cs" />
-    <Compile Include="CommandInfo.cs" />
+    <Compile Include="InlineKeyboardInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Questions.cs" />

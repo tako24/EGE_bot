@@ -15,7 +15,7 @@ namespace EGE_bot
         static Data()
         {
             AllQuestions = new List<Task>();
-            var jsonText = File.ReadAllText("C:/Users/Настя/EGE_bot/EGE_bot/EGE_bot/numberFor.json");
+            var jsonText = File.ReadAllText("EGE_bot/numberFor.json");
             var parsed = JsonConvert.DeserializeObject<Dictionary<string, Task>>(jsonText);
             foreach (var task in parsed.Values)
             {
