@@ -6,6 +6,7 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.ReplyMarkups;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace EGE_bot
 {
@@ -17,16 +18,15 @@ namespace EGE_bot
         static void Main(string[] args)
         {
             var client = new TelegramBotClient(Token);
-            //client.StartReceiving();
-            //client.OnMessage += OnMessageHandler;
+            client.StartReceiving();
+            client.OnMessage += OnMessageHandler;
+            //var a = new Questions("Шифрование по известному коду и перевод в различные СС", "Передача информации. Выбор кода");
+            //foreach (var item in a.AllQuestions)
+            //{
+            //    Console.WriteLine(item.ToString());
+            //}
+            //Console.WriteLine(a.AllQuestions.Count());
 
-            var a = new Questions( "Шифрование по известному коду и перевод в различные СС", "Передача информации. Выбор кода");
-            foreach (var item in a.AllQuestions)
-            {
-                Console.WriteLine(item.ToString());
-            }
-            Console.WriteLine(a.AllQuestions.Count());
-            
             Console.ReadLine();
             //client.StopReceiving();
         }
@@ -35,8 +35,19 @@ namespace EGE_bot
         {
             var message = e.Message;
             if (message != null)
-                Console.WriteLine("Check");
-            await client.SendTextMessageAsync(message.Chat.Id, message.Text, replyMarkup: GetButtons());
+            {
+                Console.WriteLine(e.Message.Text + " " + message.Chat.Username + " " + message.Chat.Id);
+            }
+            if (message.Text == @"/fulltask")
+            {
+                var questions = new Questions();
+                foreach (var question in questions.AllQuestions)
+                {
+                    //Console.WriteLine(question.Question + " " + question.Number + "\n");
+                    await client.SendTextMessageAsync(message.Chat.Id, "123");
+                }
+            }
+            //await client.SendTextMessageAsync(message.Chat.Id, message.Text, replyMarkup: GetButtons());
 
         }
         private static IReplyMarkup GetButtons()

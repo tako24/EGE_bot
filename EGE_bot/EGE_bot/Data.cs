@@ -20,6 +20,7 @@ namespace EGE_bot
             {
                 AllQuestions.Add(task);
             }
+            AllQuestions = AllQuestions.OrderBy(x => Int32.Parse(x.Number)).ToList();
         }
 
         public static void Add(Task task)

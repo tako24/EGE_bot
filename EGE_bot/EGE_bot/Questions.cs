@@ -11,6 +11,14 @@ namespace EGE_bot
         private int currentIndex;
         public List<Task> AllQuestions { get; }
 
+        public Questions()
+        {
+            AllQuestions = new List<Task>();
+            for (var i = 1; i <= 3; i++)
+            {
+                AllQuestions.Add(Data.AllQuestions.Where(number => number.Number == i.ToString()).Select(x => x).OrderBy(a => Guid.NewGuid()).ToList()[0]); 
+            }
+        }
 
         public Questions(params string[] themes)
         {
@@ -26,7 +34,7 @@ namespace EGE_bot
             //}
         }
 
-        public Task GetQuestion()
+        public Task GetTask()
         {
             currentIndex++;
             if (currentIndex == AllQuestions.Count())
