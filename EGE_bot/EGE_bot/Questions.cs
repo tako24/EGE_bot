@@ -16,7 +16,7 @@ namespace EGE_bot
         {
             currentIndex = -1;
             AllQuestions = new List<Task>();
-            AllQuestions = Data.AllQuestions.Where(theme => themes.Contains(theme.Theme)).Select(theme => theme).ToList();
+            AllQuestions = Data.AllQuestions.Where(theme => themes.Contains(theme.Theme)).Select(theme => theme).OrderBy(a => Guid.NewGuid()).ToList();
             //foreach (var question in Data.AllQuestions)
             //{
             //    if (themes.Contains(question.Theme))
