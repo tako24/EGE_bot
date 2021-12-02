@@ -8,23 +8,23 @@ namespace EGE_bot
 {
     class Questions
     {
-        private int currentIndex;
-        public List<Task> AllQuestions { get; }
+        public int CurrentIndex;
+        public List<Task> Variant { get; }
 
         public Questions()
         {
-            AllQuestions = new List<Task>();
+            Variant = new List<Task>();
             for (var i = 1; i <= 3; i++)
             {
-                AllQuestions.Add(Data.AllQuestions.Where(number => number.Number == i.ToString()).Select(x => x).OrderBy(a => Guid.NewGuid()).ToList()[0]); 
+                Variant.Add(Data.AllQuestions.Where(number => number.Number == i.ToString()).Select(x => x).OrderBy(a => Guid.NewGuid()).ToList()[0]); 
             }
         }
 
         public Questions(params string[] themes)
         {
-            currentIndex = -1;
-            AllQuestions = new List<Task>();
-            AllQuestions = Data.AllQuestions.Where(theme => themes.Contains(theme.Theme)).Select(theme => theme).OrderBy(a => Guid.NewGuid()).ToList();
+            CurrentIndex = -1;
+            Variant = new List<Task>();
+            Variant = Data.AllQuestions.Where(theme => themes.Contains(theme.Theme)).Select(theme => theme).OrderBy(a => Guid.NewGuid()).ToList();
             //foreach (var question in Data.AllQuestions)
             //{
             //    if (themes.Contains(question.Theme))
@@ -36,17 +36,17 @@ namespace EGE_bot
 
         public Task GetTask()
         {
-            currentIndex++;
-            if (currentIndex == AllQuestions.Count())
-                currentIndex = 0;
-            return AllQuestions[currentIndex];
+            CurrentIndex++;
+            if (CurrentIndex == Variant.Count())
+                CurrentIndex = 0;
+            return Variant[CurrentIndex];
         }
 
         public Task this[int index]
         {
             get
             {
-                return AllQuestions[index];
+                return Variant[index];
             }
         }
     }

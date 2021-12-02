@@ -68,6 +68,7 @@
     <Compile Include="Task.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Tests.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
