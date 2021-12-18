@@ -17,6 +17,14 @@ namespace EGE_bot
             CurrentQuestions = new Questions();
             CurrentIndex = 0;
         }
+
+        public User(long chatId, string str = "")
+        {
+            ChatId = chatId;
+            CurrentQuestions = new Questions(str);
+            CurrentIndex = 0;
+        }
+
         public string OnMessageSend(string text)
         {
             CurrentQuestions[CurrentIndex].Check(text);

@@ -22,6 +22,40 @@ namespace EGE_bot
             bot.StartReceiving();
             users = new List<User>();
             bot.OnMessage += OnMessageHandler;
+            //bot.OnCallbackQuery += async (object sc, Telegram.Bot.Args.CallbackQueryEventArgs ev) =>
+            //{
+            //    var message = ev.CallbackQuery.Message;
+            //    if (ev.CallbackQuery.Data == "вопрос номер 1")
+            //    {
+            //        var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(new[]
+            //        {
+            //            new []
+            //            {
+            //                InlineKeyboardButton.WithCallbackData("тема 1 для задания 1", "тема 1 для задания 1"),
+            //                InlineKeyboardButton.WithCallbackData("тема 2 для задания 1", "тема 2 для задания 1")
+            //            }
+            //        });
+            //        await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: keyboard);
+            //        Console.WriteLine("1");
+            //    }
+            //    else
+            //    if (ev.CallbackQuery.Data == "вопрос номер 2")
+            //    {
+            //        var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(new[]
+            //        {
+            //            new []
+            //            {
+            //                InlineKeyboardButton.WithCallbackData("тема 1 для задания 2", "тема 1 для задания 2")
+            //            },
+            //            new []
+            //            {
+            //                InlineKeyboardButton.WithCallbackData("Выбор кода при неиспользуемых сигналах", "тема 1 для задания 2"),
+            //            }
+            //        });
+            //        await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: keyboard);
+            //        Console.WriteLine("2");
+            //    }
+            //};
             Console.ReadLine();
             bot.StopReceiving();
         }
@@ -30,16 +64,27 @@ namespace EGE_bot
         {
 
             var message = e.Message;
+
+            //var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(new[]
+            //{
+            //    new []
+            //    {
+            //        InlineKeyboardButton.WithCallbackData("1", "вопрос номер 1"),
+            //        InlineKeyboardButton.WithCallbackData("2", "вопрос номер 2"),
+            //    }
+            //});
+            //await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: keyboard);
+
             if (message.Text == @"/start")
             {
-                await bot.SendTextMessageAsync(chatId: message.Chat.Id
-                    , text: "выберите", replyMarkup: GetButtons());
+                await bot.SendTextMessageAsync(chatId: message.Chat.Id,
+                    text: "выберите", replyMarkup: GetButtons());
+                return;
             }
 
             if (message.Text == @"Выбор задания")
             {
-                await bot.SendTextMessageAsync(chatId: message.Chat.Id
-                    , text: "выберите", replyMarkup: GetButtons());
+                return;
             }
 
             foreach (var user in users)
@@ -62,12 +107,18 @@ namespace EGE_bot
                     return;
                 }
             }
+
             if (message.Text == @"Полный варинт")
             {
                 var user = new User(message.Chat.Id);
                 users.Add(user);
-                await bot.SendTextMessageAsync(chatId: user.ChatId
-                    , text: user.CurrentQuestions[user.CurrentIndex].Question, replyMarkup: GetButtons());
+
+
+                await bot.SendTextMessageAsync(chatId: user.ChatId,
+                    text: user.CurrentQuestions[user.CurrentIndex].Question, replyMarkup: GetButtons());
+
+                if (!string.IsNullOrEmpty(user.CurrentQuestions[user.CurrentIndex].PicturePath))
+                    await bot.SendPhotoAsync(message.Chat.Id, user.CurrentQuestions[user.CurrentIndex].PicturePath);
 
                 Console.WriteLine(e.Message.Text + " " + message.Chat.Username + " " + message.Chat.Id);
             }
