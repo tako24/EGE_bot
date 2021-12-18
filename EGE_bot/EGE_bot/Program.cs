@@ -28,40 +28,51 @@ namespace EGE_bot
 
         private async static void OnMessageHandler(object sender, MessageEventArgs e)
         {
-            
+
             var message = e.Message;
             if (message.Text == @"/start")
             {
                 await bot.SendTextMessageAsync(chatId: message.Chat.Id
                     , text: "выберите", replyMarkup: GetButtons());
             }
+
+            if (message.Text == @"Выбор задания")
+            {
+                await bot.SendTextMessageAsync(chatId: message.Chat.Id
+                    , text: "выберите", replyMarkup: GetButtons());
+            }
+
             foreach (var user in users)
             {
                 if (user.ChatId == message.Chat.Id)
-                    await bot.SendTextMessageAsync(chatId: user.ChatId
-                    , text: user.OnMessageSend(message.Text));
-                if (user.CurrentIndex>= user.CurrentQuestions.Variant.Count)
                 {
-                    await bot.SendTextMessageAsync(chatId: user.ChatId
-                    , text: "Тест окончен");
-                    users.Remove(user);
+                    await bot.SendTextMessageAsync(chatId: user.ChatId,
+                        text: user.OnMessageSend(message.Text));
+
+                    if (user.CurrentIndex >= user.CurrentQuestions.Variant.Count)
+                    {
+                        await bot.SendTextMessageAsync(chatId: user.ChatId,
+                            text: "Тест окончен");
+                        users.Remove(user);
+                        return;
+                    }
+
+                    await bot.SendTextMessageAsync(chatId: user.ChatId,
+                    text: user.CurrentQuestions[user.CurrentIndex].Question);
                     return;
                 }
-                await bot.SendTextMessageAsync(chatId: user.ChatId
-                    , text: user.CurrentQuestions[user.CurrentIndex].Question);
-                return;
             }
             if (message.Text == @"Полный варинт")
             {
                 var user = new User(message.Chat.Id);
                 users.Add(user);
                 await bot.SendTextMessageAsync(chatId: user.ChatId
-                    , text: user.CurrentQuestions[user.CurrentIndex].Question,replyMarkup: GetButtons());
+                    , text: user.CurrentQuestions[user.CurrentIndex].Question, replyMarkup: GetButtons());
 
                 Console.WriteLine(e.Message.Text + " " + message.Chat.Username + " " + message.Chat.Id);
             }
-
         }
+
         private static IReplyMarkup GetButtons()
         {
             return new ReplyKeyboardMarkup
