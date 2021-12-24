@@ -61,13 +61,11 @@ namespace EGE_bot
         private static async SystemTasks.Task BotOnCallbackQueryReceived(ITelegramBotClient botClient, CallbackQuery callbackQuery)
         {
             Console.WriteLine("Клиент {0} вызвал колбек {1}", callbackQuery.Message.Chat.Username, callbackQuery.Data.ToString());
-
-            async SystemTasks.Task<Message> SendInlineKeyboard(ITelegramBotClient bot, CallbackQuery callback, InlineKeyboardInfo inlineKeyboardInfo)
+            if (Program.themes.ContainsKey(callbackQuery.Data))
             {
-                return await bot.SendTextMessageAsync(
-                chatId: callback.Message.Chat.Id,
-                text: inlineKeyboardInfo.Text,
-                replyMarkup: inlineKeyboardInfo.Keyboard);
+                var temp = Keyboard.GetInline(Program.themes[callbackQuery.Data]);
+                Console.WriteLine(Program.themes[callbackQuery.Data][0]);
+                await botClient.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Выбери тему!", replyMarkup: temp);
             }
         }
         private static SystemTasks.Task UnknownUpdateHandlerAsync(ITelegramBotClient botClient, Update update)
@@ -87,7 +85,7 @@ namespace EGE_bot
 
             if (message.Text == @"Выбор задания")
             {
-                await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: Keyboard.GetTasksKeyboard(20));
+                await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: Keyboard.GetTasksKeyboard(20,5));
                 return;
             }
 

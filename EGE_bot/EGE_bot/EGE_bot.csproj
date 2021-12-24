@@ -71,9 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandsData.cs" />
     <Compile Include="Handlers.cs" />
-    <Compile Include="InlineKeyboardInfo.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="MessageParser.cs" />
     <Compile Include="Program.cs" />

@@ -10,13 +10,13 @@ namespace EGE_bot
 {
     class MessageParser
     {
-        static IReplyMarkup ParseCallBack(CallbackQuery callback)
-        {
-            int taskNumber;
-            if (int.TryParse(callback.Data, out taskNumber))
-            {
+        //static IReplyMarkup ParseCallBack(CallbackQuery callback)
+        //{
+        //    int taskNumber;
+        //    if (int.TryParse(callback.Data, out taskNumber))
+        //    {
 
-            }
-        }
+        //    }
+        //}
     }
 }

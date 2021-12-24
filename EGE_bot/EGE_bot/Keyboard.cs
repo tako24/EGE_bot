@@ -9,21 +9,21 @@ namespace EGE_bot
 {
     static class Keyboard
     {
-        public static IReplyMarkup GetInlineKeyboard(int taskNumber)
-        {
-            switch (taskNumber)
-            {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                default:
-                    break;
-            }
-        }
+        //public static IReplyMarkup GetInlineKeyboard(int taskNumber)
+        //{
+        //    switch (taskNumber)
+        //    {
+        //        case 1:
+        //            break;
+        //        case 2:
+        //            break;
+        //        case 3:
+        //            break;
+        //        case 4:
+        //        default:
+        //            break;
+        //    }
+        //}
         public static IReplyMarkup GetStartReplyKeyboard()
         {
             var Keyboard = new List<List<KeyboardButton>>
@@ -34,15 +34,16 @@ namespace EGE_bot
             return new ReplyKeyboardMarkup(Keyboard);
         }
 
-        public static IReplyMarkup GetInline(params string[] tasksName)
+        public static IReplyMarkup GetInline(params string[] tasksNames)
         {
-
-            var Keyboard = new List<List<KeyboardButton>>
-                {
-                    new List<KeyboardButton>{ new KeyboardButton("Выбор задания") },
-                    new List<KeyboardButton>{ new KeyboardButton("Полный вариант") }
-                };
-            return new ReplyKeyboardMarkup(Keyboard);
+            var keyboard = new List<List<InlineKeyboardButton>>();
+            keyboard.Add(new List<InlineKeyboardButton>());
+            for (int i = 0; i < tasksNames.Length; i++)
+            {
+                keyboard.Add(new List<InlineKeyboardButton>());
+                keyboard[keyboard.Count - 1].Add(InlineKeyboardButton.WithCallbackData(tasksNames[i], tasksNames[i].ToString()));
+            }
+            return new InlineKeyboardMarkup(keyboard);
         }
 
         public static IReplyMarkup GetBackKeyboard()
@@ -68,7 +69,7 @@ namespace EGE_bot
                 {
                     keyboard.Add(new List<InlineKeyboardButton>());
                 }
-                keyboard[keyboard.Count - 1].Add(InlineKeyboardButton.WithCallbackData((i + 1).ToString(),  (i + 1).ToString()));
+                keyboard[keyboard.Count - 1].Add(InlineKeyboardButton.WithCallbackData((i + 1).ToString(), "инф"+(i + 1).ToString()));
             }
             return new InlineKeyboardMarkup(keyboard);
         }
