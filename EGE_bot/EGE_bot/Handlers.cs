@@ -58,14 +58,37 @@ namespace EGE_bot
                 //await HandleErrorAsync(botClient, exception, cancellationToken);
             }
         }
-        private static async SystemTasks.Task BotOnCallbackQueryReceived(ITelegramBotClient botClient, CallbackQuery callbackQuery)
+
+
+
+        private static async SystemTasks.Task BotOnCallbackQueryReceived(ITelegramBotClient bot, CallbackQuery callbackQuery)
         {
+            foreach (var item in Program.themes.Values)
+            {
+                if (item.Contains(callbackQuery.Data))
+                {
+                    var user = new User(callbackQuery.Message.Chat.Id, callbackQuery.Data);
+                    Console.WriteLine("Добавлен новый юзер - {0}", callbackQuery.Message.Chat.Username);
+                    Program.users.Add(user);
+
+
+                    await bot.SendTextMessageAsync(chatId: user.ChatId,
+                        text: user.CurrentQuestions[user.CurrentIndex].Question);
+
+                    if (!string.IsNullOrEmpty(user.CurrentQuestions[user.CurrentIndex].PicturePath))
+                        await bot.SendPhotoAsync(callbackQuery.Message.Chat.Id, user.CurrentQuestions[user.CurrentIndex].PicturePath);
+
+                    Console.WriteLine(callbackQuery.Message.Text + " " + callbackQuery.Message.Chat.Username + " " + callbackQuery.Message.Chat.Id);
+                    return;
+                }
+            }
+            await bot.EditMessageReplyMarkupAsync(callbackQuery.Message.Chat.Id, callbackQuery.Message.MessageId);
             Console.WriteLine("Клиент {0} вызвал колбек {1}", callbackQuery.Message.Chat.Username, callbackQuery.Data.ToString());
             if (Program.themes.ContainsKey(callbackQuery.Data))
             {
                 var temp = Keyboard.GetInline(Program.themes[callbackQuery.Data]);
                 Console.WriteLine(Program.themes[callbackQuery.Data][0]);
-                await botClient.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Выбери тему!", replyMarkup: temp);
+                await bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Выбери тему!", replyMarkup: temp);
             }
         }
         private static SystemTasks.Task UnknownUpdateHandlerAsync(ITelegramBotClient botClient, Update update)

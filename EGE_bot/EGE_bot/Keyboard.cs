@@ -26,22 +26,22 @@ namespace EGE_bot
         //}
         public static IReplyMarkup GetStartReplyKeyboard()
         {
-            var Keyboard = new List<List<KeyboardButton>>
+            var list = new List<List<KeyboardButton>>
                 {
                     new List<KeyboardButton>{ new KeyboardButton("Выбор задания") },
                     new List<KeyboardButton>{ new KeyboardButton("Полный вариант") }
                 };
-            return new ReplyKeyboardMarkup(Keyboard);
+            var keyboard = new ReplyKeyboardMarkup(list);
+            keyboard.ResizeKeyboard = true;
+            return keyboard;
         }
 
         public static IReplyMarkup GetInline(params string[] tasksNames)
         {
             var keyboard = new List<List<InlineKeyboardButton>>();
-            keyboard.Add(new List<InlineKeyboardButton>());
-            for (int i = 0; i < tasksNames.Length; i++)
+            foreach (var tasksName in tasksNames)
             {
-                keyboard.Add(new List<InlineKeyboardButton>());
-                keyboard[keyboard.Count - 1].Add(InlineKeyboardButton.WithCallbackData(tasksNames[i], tasksNames[i].ToString()));
+                keyboard.Add(new List<InlineKeyboardButton> { InlineKeyboardButton.WithCallbackData(tasksName, tasksName) });
             }
             return new InlineKeyboardMarkup(keyboard);
         }
