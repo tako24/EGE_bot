@@ -116,7 +116,7 @@ namespace EGE_bot
             {
                 if (user.ChatId == message.Chat.Id)
                 {
-                    if (message.Text == @"Полный вариант") 
+                    if (message.Text == @"Полный вариант" || message.Text == @"Выбор задания") 
                     {
                         Program.users.Remove(user);
                         break;
