@@ -26,7 +26,7 @@ namespace EGE_bot
             Variant = new List<Task>();
             Variant = Data.AllQuestions.Where(theme => themes.Contains(theme.Theme)).Select(theme => theme).OrderBy(a => Guid.NewGuid()).ToList();
             //foreach (var question in Data.AllQuestions)
-            //{
+            //{`
             //    if (themes.Contains(question.Theme))
             //    {
             //        AllQuestions.Add(question);

@@ -46,3 +46,11 @@ C:\Users\Илья\Documents\GitHub\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.csp
 C:\Users\Илья\Documents\GitHub\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.csproj.CopyComplete
 C:\Users\Илья\Documents\GitHub\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.exe
 C:\Users\Илья\Documents\GitHub\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.pdb
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\JetBrains.Annotations.dll
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\System.Threading.Channels.dll
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Telegram.Bot.Extensions.Polling.dll
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\JetBrains.Annotations.xml
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\System.Threading.Channels.xml
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Telegram.Bot.pdb
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Telegram.Bot.Extensions.Polling.pdb
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\bin\Debug\Telegram.Bot.Extensions.Polling.xml
