@@ -25,6 +25,7 @@ namespace EGE_bot
         }
         public static async SystemTasks.Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
+            switch (update.Type) { }   
             SystemTasks.Task handler= null;
             switch (update.Type)
             {
@@ -35,6 +36,7 @@ namespace EGE_bot
                     handler = BotOnMessageReceived(botClient, update.Message);
                     break;
                 case UpdateType.InlineQuery:
+                    Console.WriteLine("fasdfasdgasfdgasdgasdfasdfasd");
                     break;
                 case UpdateType.ChosenInlineResult:
                     break;
@@ -99,18 +101,23 @@ namespace EGE_bot
 
         private static async SystemTasks.Task BotOnMessageReceived(ITelegramBotClient bot, Message message)
         {
-            if (message.Text == @"/start")
+            switch (message.Text)
             {
-                await bot.SendTextMessageAsync(chatId: message.Chat.Id,
-                    text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
-                return;
+                case @"/start":
+                    await bot.SendTextMessageAsync(chatId: message.Chat.Id,
+                           text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
+                    return;
+                case @"/users":
+                    await bot.SendTextMessageAsync(chatId: message.Chat.Id,
+                           text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
+                    return;
+                case @"Выбор задания":
+                    await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: Keyboard.GetTasksKeyboard(20, 5));
+                    return;
+                default:
+                    break;
             }
 
-            if (message.Text == @"Выбор задания")
-            {
-                await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: Keyboard.GetTasksKeyboard(20,5));
-                return;
-            }
 
             foreach (var user in Program.users)
             {

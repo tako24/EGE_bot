@@ -14,7 +14,6 @@ namespace EGE_bot
         public string Solution { set; get; }
         public string PicturePath { set; get; }
         public string Number { set; get; }
-        public bool isCorrectAnswer;
 
         //public Task(string[] task)
         //{
@@ -31,9 +30,10 @@ namespace EGE_bot
         //    PicturePath = picturePath;
         //    Theme = theme;
         //}
-        public void Check(string result)
+        public bool Check(string result)
         {
-            isCorrectAnswer = Answer.Trim() == result.Trim();
+            Console.WriteLine(result.Trim()+" " + Solution.Trim()+ "ответп и ответВ");
+            return Answer.Trim() == result.Trim();
         }
         public override string ToString() => string.Format("{0}\n{1}\n{2}\n{3}", Question, Answer, Theme, PicturePath);
     }
