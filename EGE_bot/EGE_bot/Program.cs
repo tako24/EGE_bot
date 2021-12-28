@@ -28,7 +28,6 @@ namespace EGE_bot
             bot.StartReceiving(new DefaultUpdateHandler(Handlers.HandleUpdateAsync,Handlers.HandleErrorAsync));
             Console.ReadLine();
             cts.Cancel();
-
         }
     }
 }

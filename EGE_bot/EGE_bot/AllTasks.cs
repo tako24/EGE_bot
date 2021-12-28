@@ -25,11 +25,6 @@ namespace EGE_bot
             }
             Themes = AllTasks.Tasks.Select(t => t.Theme).Distinct().ToList();
             Numbers = AllTasks.Tasks.Select(t => t.Number).Distinct().ToList();
-           // Tasks = Tasks.OrderBy(x => Int32.Parse(x.Number.Split('_')[2])).ToList();
         }
-        //public static void Add(Task task)
-        //{
-        //    AllTasks.Add(task);
-        //}
     }
 }

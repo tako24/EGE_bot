@@ -9,21 +9,6 @@ namespace EGE_bot
 {
     static class Keyboard
     {
-        //public static IReplyMarkup GetInlineKeyboard(int taskNumber)
-        //{
-        //    switch (taskNumber)
-        //    {
-        //        case 1:
-        //            break;
-        //        case 2:
-        //            break;
-        //        case 3:
-        //            break;
-        //        case 4:
-        //        default:
-        //            break;
-        //    }
-        //}
         public static IReplyMarkup GetStartReplyKeyboard()
         {
             var list = new List<List<KeyboardButton>>

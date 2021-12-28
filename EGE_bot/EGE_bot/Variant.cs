@@ -24,16 +24,7 @@ namespace EGE_bot
         public Variant(string theme)
         {
             CurrentIndex = 0;
-           // Tasks = new List<Task>();
             Tasks = AllTasks.Tasks.Where(task => task.Theme == theme).Select(task => task).OrderBy(a => Guid.NewGuid()).ToList();
-            //Console.WriteLine("{0}", Tasks);
-            //foreach (var question in Data.AllQuestions)
-            //{`
-            //    if (themes.Contains(question.Theme))
-            //    {
-            //        AllQuestions.Add(question);
-            //    }
-            //}
         }
 
         public string GetCurrentPicturepath()
@@ -45,14 +36,6 @@ namespace EGE_bot
         {
             return this[CurrentIndex].Question;
         }
-
-        //public Task GetTask()
-        //{
-        //    CurrentIndex++;
-        //    if (CurrentIndex == Tasks.Count())
-        //        CurrentIndex = 0;
-        //    return Tasks[CurrentIndex];
-        //}
 
         public string OnMessageSend(string text)
         {
