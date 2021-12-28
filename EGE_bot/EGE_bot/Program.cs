@@ -19,17 +19,6 @@ namespace EGE_bot
         private static string Token { get; } = "2061132160:AAHRnhICjh2hP3RlwXUopKKDZ1aBx3ZRfMg";
         private static TelegramBotClient bot;
         public static List<User> users;
-        public static Dictionary<string, string[]> themes = new Dictionary<string, string[]> 
-        {
-            {"инф1", new string[]{ "Поиск оптимального маршрута", "Неоднозначное соотнесение", "Однозначное соотнесение "} },
-            {"инф2", new string[]{ "Монотонные функции ", "Немонотонные функции ", "Строки с пропущенными значениями","Разные задачи " } },
-            {"инф3", new string[]{ "Задания для подготовки" } },
-            {"инф4", new string[]{ "Выбор кода при неиспользуемых сигналах", "Расшифровка сообщений " } },
-            {"инф5", new string[]{ "Исполнители на плоскости", "Разные задачи" } },
-            {"инф6", new string[]{ "3", "2" } }
-
-
-        };
         static void Main(string[] args)
         {
             users = new List<User>();
