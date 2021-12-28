@@ -29,7 +29,7 @@ namespace EGE_bot
         {
             CurrentQuestions[CurrentIndex].Check(text);
             string temp = "Верно";
-            if (!CurrentQuestions[CurrentIndex].isCorrectAnswer)
+            if (!CurrentQuestions[CurrentIndex].Check(text))
             {
                 temp =  CurrentQuestions[CurrentIndex].Solution;
             }
