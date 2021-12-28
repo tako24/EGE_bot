@@ -25,7 +25,13 @@ namespace EGE_bot
         }
         public static async SystemTasks.Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
+<<<<<<< HEAD
+            //switch (update.Type) { }
+            SystemTasks.Task handler = null;
+=======
+            switch (update.Type) { }   
             SystemTasks.Task handler= null;
+>>>>>>> 889abdbb9cec898914a7ceff6ac83fd1ce6c1ece
             switch (update.Type)
             {
                 case UpdateType.Unknown:
@@ -35,6 +41,7 @@ namespace EGE_bot
                     handler = BotOnMessageReceived(botClient, update.Message);
                     break;
                 case UpdateType.InlineQuery:
+                    Console.WriteLine("fasdfasdgasfdgasdgasdfasdfasd");
                     break;
                 case UpdateType.ChosenInlineResult:
                     break;
@@ -42,8 +49,8 @@ namespace EGE_bot
                     handler = BotOnCallbackQueryReceived(botClient, update.CallbackQuery);
                     break;
                 //case UpdateType.EditedMessage:
-                //    handler = BotOnMessageReceived(botClient, update.EditedMessage);
-                //    break;
+                // handler = BotOnMessageReceived(botClient, update.EditedMessage);
+                // break;
                 default:
                     handler = UnknownUpdateHandlerAsync(botClient, update);
                     break;
@@ -55,42 +62,37 @@ namespace EGE_bot
             }
             catch (Exception exception)
             {
-                //await HandleErrorAsync(botClient, exception, cancellationToken);
+                await HandleErrorAsync(botClient, exception, cancellationToken);
             }
         }
-
-
 
         private static async SystemTasks.Task BotOnCallbackQueryReceived(ITelegramBotClient bot, CallbackQuery callbackQuery)
         {
-            foreach (var item in Program.themes.Values)
+
+            if (AllTasks.Themes.Contains(callbackQuery.Data))
             {
-                if (item.Contains(callbackQuery.Data))
-                {
-                    var user = new User(callbackQuery.Message.Chat.Id, callbackQuery.Data);
-                    Console.WriteLine("Добавлен новый юзер - {0}", callbackQuery.Message.Chat.Username);
-                    Program.users.Add(user);
+                var user = new User(callbackQuery.Message.Chat.Id, callbackQuery.Data);
+                //Console.WriteLine("Добавлен новый юзер - {0}", callbackQuery.Message.Chat.Username);
+                Program.users.Add(user);
 
+                await SendTask(bot, user, callbackQuery.Message.Chat.Id);
 
-                    await bot.SendTextMessageAsync(chatId: user.ChatId,
-                        text: user.CurrentQuestions[user.CurrentIndex].Question);
-
-                    if (!string.IsNullOrEmpty(user.CurrentQuestions[user.CurrentIndex].PicturePath))
-                        await bot.SendPhotoAsync(callbackQuery.Message.Chat.Id, user.CurrentQuestions[user.CurrentIndex].PicturePath);
-
-                    Console.WriteLine(callbackQuery.Message.Text + " " + callbackQuery.Message.Chat.Username + " " + callbackQuery.Message.Chat.Id);
-                    return;
-                }
+                //Console.WriteLine(callbackQuery.Message.Text + " " + callbackQuery.Message.Chat.Username + " " + callbackQuery.Message.Chat.Id);
+                //Console.WriteLine("{0}", AllTasks.Tasks[0]);
+                return;
             }
+        
             await bot.EditMessageReplyMarkupAsync(callbackQuery.Message.Chat.Id, callbackQuery.Message.MessageId);
-            Console.WriteLine("Клиент {0} вызвал колбек {1}", callbackQuery.Message.Chat.Username, callbackQuery.Data.ToString());
-            if (Program.themes.ContainsKey(callbackQuery.Data))
+            //Console.WriteLine("Клиент {0} вызвал колбек {1}", callbackQuery.Message.Chat.Username, callbackQuery.Data.ToString());
+      
+            
+            if (AllTasks.Numbers.Contains(callbackQuery.Data))
             {
-                var temp = Keyboard.GetInline(Program.themes[callbackQuery.Data]);
-                Console.WriteLine(Program.themes[callbackQuery.Data][0]);
+                var temp = Keyboard.GetInline(AllTasks.Tasks.Where(th => th.Number == callbackQuery.Data).Select(th => th.Theme).Distinct().ToArray());
                 await bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Выбери тему!", replyMarkup: temp);
             }
         }
+
         private static SystemTasks.Task UnknownUpdateHandlerAsync(ITelegramBotClient botClient, Update update)
         {
             Console.WriteLine($"Unknown update type: {update.Type}");
@@ -99,41 +101,57 @@ namespace EGE_bot
 
         private static async SystemTasks.Task BotOnMessageReceived(ITelegramBotClient bot, Message message)
         {
-            if (message.Text == @"/start")
+            switch (message.Text)
             {
-                await bot.SendTextMessageAsync(chatId: message.Chat.Id,
+                case @"/start":
+                    await bot.SendTextMessageAsync(chatId: message.Chat.Id,
+<<<<<<< HEAD
                     text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
-                return;
+                    return;
+                case @"/users":
+                    await bot.SendTextMessageAsync(chatId: message.Chat.Id,
+                    text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
+=======
+                           text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
+                    return;
+                case @"/users":
+                    await bot.SendTextMessageAsync(chatId: message.Chat.Id,
+                           text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
+>>>>>>> 889abdbb9cec898914a7ceff6ac83fd1ce6c1ece
+                    return;
+                case @"Выбор задания":
+                    await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: Keyboard.GetTasksKeyboard(20, 5));
+                    return;
+                default:
+                    break;
             }
+<<<<<<< HEAD
+=======
 
-            if (message.Text == @"Выбор задания")
-            {
-                await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: Keyboard.GetTasksKeyboard(20,5));
-                return;
-            }
+>>>>>>> 889abdbb9cec898914a7ceff6ac83fd1ce6c1ece
 
             foreach (var user in Program.users)
             {
                 if (user.ChatId == message.Chat.Id)
                 {
-                    if (message.Text == @"Полный вариант" || message.Text == @"Выбор задания") 
+                    if (message.Text == @"Полный вариант" || message.Text == @"Выбор задания")
                     {
                         Program.users.Remove(user);
                         break;
                     }
                     await bot.SendTextMessageAsync(chatId: user.ChatId,
-                        text: user.OnMessageSend(message.Text));
-                    if (user.CurrentIndex >= user.CurrentQuestions.Variant.Count)
+                    text: user.CurrentVariant.OnMessageSend(message.Text));
+                    if (user.CurrentVariant.CurrentIndex >= user.CurrentVariant.Tasks.Count)
                     {
                         await bot.SendTextMessageAsync(chatId: user.ChatId,
-                            text: "Тест окончен");
+                        text: "Тест окончен");
                         Console.WriteLine("{0} удален", message.Chat.Username);
                         Program.users.Remove(user);
                         return;
                     }
 
                     await bot.SendTextMessageAsync(chatId: user.ChatId,
-                    text: user.CurrentQuestions[user.CurrentIndex].Question);
+                    text: user.CurrentVariant.GetCurrentQuestion());
                     return;
                 }
             }
@@ -141,18 +159,21 @@ namespace EGE_bot
             if (message.Text == @"Полный вариант")
             {
                 var user = new User(message.Chat.Id);
-                Console.WriteLine("Добавлен новый юзер - {0}", message.Chat.Username);
+                //Console.WriteLine("Добавлен новый юзер - {0}", message.Chat.Username);
                 Program.users.Add(user);
-
-
-                await bot.SendTextMessageAsync(chatId: user.ChatId,
-                    text: user.CurrentQuestions[user.CurrentIndex].Question);
-
-                if (!string.IsNullOrEmpty(user.CurrentQuestions[user.CurrentIndex].PicturePath))
-                    await bot.SendPhotoAsync(message.Chat.Id, user.CurrentQuestions[user.CurrentIndex].PicturePath);
-
-                Console.WriteLine(message.Text + " " + message.Chat.Username + " " + message.Chat.Id);
+                await SendTask(bot, user, message.Chat.Id);
+                //Console.WriteLine(message.Text + " " + message.Chat.Username + " " + message.Chat.Id);
             }
         }
+
+        private static async SystemTasks.Task SendTask(ITelegramBotClient bot, User user, long chatId)
+        {
+            await bot.SendTextMessageAsync(chatId: user.ChatId,
+            text: user.CurrentVariant.GetCurrentQuestion());
+
+            if (!string.IsNullOrEmpty(user.CurrentVariant.GetCurrentPicturepath()))
+                await bot.SendPhotoAsync(chatId, user.CurrentVariant.GetCurrentPicturepath());
+        }
+
     }
 }
