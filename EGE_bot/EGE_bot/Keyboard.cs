@@ -57,7 +57,6 @@ namespace EGE_bot
 
         public static IReplyMarkup GetTasksKeyboard(int count, int length = 8)
         {
-            
             if (length>8)
             {
                 length = 8;
