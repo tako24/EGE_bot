@@ -59,22 +59,29 @@ namespace EGE_bot
 
         private static async SystemTasks.Task BotOnCallbackQueryReceived(ITelegramBotClient bot, CallbackQuery callbackQuery)
         {
-
-            if (AllTasks.Themes.Contains(callbackQuery.Data))
-            {
-                var user = new User(callbackQuery.Message.Chat.Id, callbackQuery.Data);
-                Program.users.Add(user);
-
-                await SendTask(bot, user);
-                return;
-            }
-        
-            await bot.EditMessageReplyMarkupAsync(callbackQuery.Message.Chat.Id, callbackQuery.Message.MessageId);
-            
             if (AllTasks.Numbers.Contains(callbackQuery.Data))
             {
                 var temp = Keyboard.GetInline(AllTasks.Tasks.Where(th => th.Number == callbackQuery.Data).Select(th => th.Theme).Distinct().ToArray());
+                await bot.EditMessageReplyMarkupAsync(callbackQuery.Message.Chat.Id, callbackQuery.Message.MessageId);
                 await bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Выбери тему!", replyMarkup: temp);
+            }
+
+            foreach (var theme in AllTasks.Themes)
+            {
+                var temp = theme;
+                if (theme.Length > 29)
+                {
+                    temp = theme.Substring(0, 29);
+                }
+
+                if (temp.Contains(callbackQuery.Data))
+                {
+                    var user = new User(callbackQuery.Message.Chat.Id, theme);
+                    Program.users.Add(user);
+
+                    await SendTask(bot, user);
+                    return;
+                }
             }
         }
 

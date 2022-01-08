@@ -17,8 +17,7 @@ namespace EGE_bot
         [Test]
         public void SnatchOutOfJson()
         {
-
-            Assert.AreEqual("46", AllTasks.Tasks[0].Answer); ;
+            Assert.AreEqual("46", AllTasks.Tasks[0].Answer);
         }
 
         [Test]

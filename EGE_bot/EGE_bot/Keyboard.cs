@@ -26,7 +26,10 @@ namespace EGE_bot
             var keyboard = new List<List<InlineKeyboardButton>>();
             foreach (var tasksName in tasksNames)
             {
-                keyboard.Add(new List<InlineKeyboardButton> { InlineKeyboardButton.WithCallbackData(tasksName, tasksName) });
+                var temp = tasksName;
+                if (tasksName.Length > 29)
+                    temp = tasksName.Substring(0, 29);
+                keyboard.Add(new List<InlineKeyboardButton> { InlineKeyboardButton.WithCallbackData(tasksName, temp) });
             }
             return new InlineKeyboardMarkup(keyboard);
         }
