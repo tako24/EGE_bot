@@ -8,44 +8,44 @@ namespace EGE_bot
 {
     class Variant
     {
-        public int CurrentIndex;
+        public int currentIndex;
         public  List<Task> Tasks { get; }
-
+        private int fullVariantTasksCount = 21;
         public Variant()
         {
             Tasks = new List<Task>();
-            for (var i = 1; i <= 3; i++)
+            for (var i = 1; i <= fullVariantTasksCount; i++)
             {
-                Tasks.Add(AllTasks.Tasks.Where(number => number.Number == ("инф" + i.ToString())).Select(x => x).OrderBy(a => Guid.NewGuid()).ToList()[0]);
+                Tasks.Add(AllTasks.Tasks.Where(number => number.Number == (i.ToString())).Select(x => x).OrderBy(a => Guid.NewGuid()).ToList()[0]);
             }
             Tasks.OrderBy(a => Guid.NewGuid()).ToList();
         }
 
         public Variant(string theme)
         {
-            CurrentIndex = 0;
+            currentIndex = 0;
             Tasks = AllTasks.Tasks.Where(task => task.Theme == theme).Select(task => task).OrderBy(a => Guid.NewGuid()).ToList();
         }
 
         public string GetCurrentPicturepath()
         {
-            return this[CurrentIndex].PicturePath;
+            return this[currentIndex].PicturePath;
         }
 
         public string GetCurrentQuestion()
         {
-            return this[CurrentIndex].Question;
+            return this[currentIndex].Question;
         }
 
         public string OnMessageSend(string text)
         {
-            this[CurrentIndex].Check(text);
+            this[currentIndex].Check(text);
             string temp = "Верно";
-            if (!this[CurrentIndex].Check(text))
+            if (!this[currentIndex].Check(text))
             {
-                temp = this[CurrentIndex].Solution;
+                temp = "Неверно!\nСмотри правильое решение:\n" + this[currentIndex].Solution;
             }
-            CurrentIndex++;
+            currentIndex++;
             return temp;
         }
 

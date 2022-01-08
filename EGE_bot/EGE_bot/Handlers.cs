@@ -36,7 +36,6 @@ namespace EGE_bot
                     handler = BotOnMessageReceived(botClient, update.Message);
                     break;
                 case UpdateType.InlineQuery:
-                    Console.WriteLine("fasdfasdgasfdgasdgasdfasdfasd");
                     break;
                 case UpdateType.ChosenInlineResult:
                     break;
@@ -98,9 +97,9 @@ namespace EGE_bot
                     }
 
                     await bot.SendTextMessageAsync(chatId: user.ChatId,
-                    text: user.CurrentVariant.OnMessageSend(message.Text));
+                                    text: user.CurrentVariant.OnMessageSend(message.Text));
 
-                    if (user.CurrentVariant.CurrentIndex >= user.CurrentVariant.Tasks.Count)
+                    if (user.CurrentVariant.currentIndex >= user.CurrentVariant.Tasks.Count)
                     {
                         await bot.SendTextMessageAsync(chatId: user.ChatId,
                         text: "Тест окончен");

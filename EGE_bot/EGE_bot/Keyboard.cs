@@ -55,7 +55,7 @@ namespace EGE_bot
                 {
                     keyboard.Add(new List<InlineKeyboardButton>());
                 }
-                keyboard[keyboard.Count - 1].Add(InlineKeyboardButton.WithCallbackData((i + 1).ToString(), "инф"+(i + 1).ToString()));
+                keyboard[keyboard.Count - 1].Add(InlineKeyboardButton.WithCallbackData((i + 1).ToString(), (i + 1).ToString()));
             }
             return new InlineKeyboardMarkup(keyboard);
         }

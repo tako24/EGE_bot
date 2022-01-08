@@ -17,7 +17,7 @@ namespace EGE_bot
         static AllTasks()
         {
             Tasks = new List<Task>();
-            var jsonText = File.ReadAllText("Questions/CorrectJsonFormat.json");
+            var jsonText = File.ReadAllText(@"Questions/CorrectJsonFormat.json");
             var parsed = JsonConvert.DeserializeObject<Dictionary<string, Task>>(jsonText);
             foreach (var task in parsed.Values)
             {

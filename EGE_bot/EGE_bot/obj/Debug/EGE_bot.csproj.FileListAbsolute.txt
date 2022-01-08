@@ -93,3 +93,4 @@ C:\Users\Настя\Downloads\EGE_bot-main\EGE_bot-main\EGE_bot\EGE_bot\obj\Debu
 C:\Users\Настя\Downloads\EGE_bot-main\EGE_bot-main\EGE_bot\EGE_bot\obj\Debug\EGE_bot.csproj.CopyComplete
 C:\Users\Настя\Downloads\EGE_bot-main\EGE_bot-main\EGE_bot\EGE_bot\obj\Debug\EGE_bot.exe
 C:\Users\Настя\Downloads\EGE_bot-main\EGE_bot-main\EGE_bot\EGE_bot\obj\Debug\EGE_bot.pdb
+D:\C# tests\EGE_bot\EGE_bot\EGE_bot\obj\Debug\EGE_bot.csproj.SuggestedBindingRedirects.cache
