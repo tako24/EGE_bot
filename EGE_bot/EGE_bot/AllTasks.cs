@@ -14,10 +14,11 @@ namespace EGE_bot
         public static List<Task> Tasks { get; }
         public static List<string> Themes { get; }
         public static List<string> Numbers { get; }
+        private readonly static string jsonPath = @"Questions/CorrectJsonFormat.json";
         static AllTasks()
         {
             Tasks = new List<Task>();
-            var jsonText = File.ReadAllText(@"Questions/CorrectJsonFormat.json");
+            var jsonText = File.ReadAllText(jsonPath);
             var parsed = JsonConvert.DeserializeObject<Dictionary<string, Task>>(jsonText);
             foreach (var task in parsed.Values)
             {

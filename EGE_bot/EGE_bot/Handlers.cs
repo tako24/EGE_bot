@@ -123,14 +123,10 @@ namespace EGE_bot
             {
                 case @"/start":
                     await bot.SendTextMessageAsync(chatId: message.Chat.Id,
-                    text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
-                    return;
-                case @"/users":
-                    await bot.SendTextMessageAsync(chatId: message.Chat.Id,
-                    text: "Выбирите", replyMarkup: Keyboard.GetStartReplyKeyboard());
+                    text: "Выбери вариант задание", replyMarkup: Keyboard.GetStartReplyKeyboard());
                     return;
                 case @"Выбор задания":
-                    await bot.SendTextMessageAsync(message.Chat.Id, "Жамкни!", replyMarkup: Keyboard.GetTasksKeyboard(20, 5));
+                    await bot.SendTextMessageAsync(message.Chat.Id, "Выбери номер задания!", replyMarkup: Keyboard.GetTasksKeyboard(20, 5));
                     return;
                 case @"Полный вариант":
                     var user = new User(message.Chat.Id);
