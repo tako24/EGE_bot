@@ -38,17 +38,6 @@ namespace EGE_bot
             return this[currentIndex].Question;
         }
 
-        //public string GetSolution(string text)
-        //{
-        //    var temp = this[currentIndex].Check(text);
-        //    string sulution = "Верно";
-        //    if (!temp)
-        //    {
-        //        sulution = "Неверно!\nСмотри правильое решение:\n" + this[currentIndex].Solution;
-        //    }
-        //    currentIndex++;
-        //    return sulution;
-        //}
         public string GetSolution(string text)
         {
             var temp = this[currentIndex].Check(text);
