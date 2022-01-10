@@ -71,11 +71,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompoundVariant.cs" />
+    <Compile Include="FullVariant.cs" />
     <Compile Include="Handlers.cs" />
+    <Compile Include="ITask.cs" />
+    <Compile Include="Variant.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Variant.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="AllTasks.cs" />
     <Compile Include="Tests.cs" />

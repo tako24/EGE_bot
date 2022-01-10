@@ -13,13 +13,13 @@ namespace EGE_bot
         public User(long chatId)
         {
             ChatId = chatId;
-            CurrentVariant = new Variant();
+            CurrentVariant = new FullVariant();
         }
 
         public User(long chatId, string str = "")
         {
             ChatId = chatId;
-            CurrentVariant = new Variant(str);
+            CurrentVariant = new CompoundVariant(str);
         }
 
     }

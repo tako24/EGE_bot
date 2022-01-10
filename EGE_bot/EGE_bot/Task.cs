@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EGE_bot
 {
-    class Task
+    class Task : ITask
     {
         public string Question { set; get; }
         public string Answer { set; get; }

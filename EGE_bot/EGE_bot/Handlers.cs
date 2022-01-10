@@ -97,7 +97,7 @@ namespace EGE_bot
             {
                 if (user.ChatId == message.Chat.Id)
                 {
-                    if (message.Text == @"Полный вариант" || message.Text == @"Выбор задания")
+                    if (message.Text == @"Полный вариант" || message.Text == @"Выбор задания" || message.Text == @"/start")
                     {
                         Program.users.Remove(user);
                         break;
@@ -106,10 +106,10 @@ namespace EGE_bot
                     await bot.SendTextMessageAsync(chatId: user.ChatId,
                                     text: user.CurrentVariant.GetSolution(message.Text));
 
-                    if (user.CurrentVariant.currentIndex >= user.CurrentVariant.Tasks.Count)
+                    if (user.CurrentVariant.CurrentIndex >= user.CurrentVariant.Count)
                     {
                         await bot.SendTextMessageAsync(chatId: user.ChatId,
-                        text: String.Format("Тест окончен\n Верных ответов - {0}/{1}", user.CurrentVariant.correctAnswers, user.CurrentVariant.Tasks.Count));
+                        text: String.Format("Тест окончен\n Верных ответов - {0}/{1}", user.CurrentVariant.CorrectAnswersCount, user.CurrentVariant.Count));
                         Console.WriteLine("{0} удален", message.Chat.Username);
                         Program.users.Remove(user);
                         return;

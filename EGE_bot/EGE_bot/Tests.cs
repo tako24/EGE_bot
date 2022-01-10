@@ -64,7 +64,7 @@ namespace EGE_bot
         [Test]
         public void VariantTestOne()
         {
-            Variant variant = new Variant("Сравнение двух способов передачи данных");
+            CompoundVariant variant = new CompoundVariant("Сравнение двух способов передачи данных");
             Assert.AreEqual("Верно", variant.GetSolution("A216"));
         }
 
@@ -73,7 +73,7 @@ namespace EGE_bot
         [Test]
         public void VariantTestFour()
         {
-            Variant variant = new Variant("Подсчёт путей с обязательной вершиной");
+            CompoundVariant variant = new CompoundVariant("Подсчёт путей с обязательной вершиной");
             Assert.AreEqual("https://inf-ege.sdamgia.ru/get_file?id=25035", variant.GetCurrentPicturepath());
         }
     }
