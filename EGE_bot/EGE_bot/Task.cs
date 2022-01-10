@@ -17,7 +17,7 @@ namespace EGE_bot
 
         public bool Check(string result)
         {
-            Console.WriteLine(result.Trim()+" " + Solution.Trim()+ "ответп и ответВ");
+            Console.WriteLine("Answer is " + (Answer.Trim() == result.Trim()).ToString());
             return Answer.Trim() == result.Trim();
         }
         public override string ToString() => string.Format("{0}\n{1}\n{2}\n{3}", Question, Answer, Theme, PicturePath);

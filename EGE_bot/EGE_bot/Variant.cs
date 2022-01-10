@@ -11,6 +11,7 @@ namespace EGE_bot
         public int currentIndex;
         public  List<Task> Tasks { get; }
         private int fullVariantTasksCount = 21;
+        public int correctAnswers;
         public Variant()
         {
             Tasks = new List<Task>();
@@ -37,16 +38,28 @@ namespace EGE_bot
             return this[currentIndex].Question;
         }
 
-        public string OnMessageSend(string text)
+        //public string GetSolution(string text)
+        //{
+        //    var temp = this[currentIndex].Check(text);
+        //    string sulution = "Верно";
+        //    if (!temp)
+        //    {
+        //        sulution = "Неверно!\nСмотри правильое решение:\n" + this[currentIndex].Solution;
+        //    }
+        //    currentIndex++;
+        //    return sulution;
+        //}
+        public string GetSolution(string text)
         {
-            this[currentIndex].Check(text);
-            string temp = "Верно";
-            if (!this[currentIndex].Check(text))
+            var temp = this[currentIndex].Check(text);
+            string sulution = "Неверно!\nСмотри правильое решение:\n" + this[currentIndex].Solution;
+            if (temp)
             {
-                temp = "Неверно!\nСмотри правильое решение:\n" + this[currentIndex].Solution;
+                correctAnswers++;
+                sulution = "Верно";
             }
             currentIndex++;
-            return temp;
+            return sulution;
         }
 
         public Task this[int index]

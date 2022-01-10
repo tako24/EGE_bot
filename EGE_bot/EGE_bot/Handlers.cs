@@ -104,12 +104,12 @@ namespace EGE_bot
                     }
 
                     await bot.SendTextMessageAsync(chatId: user.ChatId,
-                                    text: user.CurrentVariant.OnMessageSend(message.Text));
+                                    text: user.CurrentVariant.GetSolution(message.Text));
 
                     if (user.CurrentVariant.currentIndex >= user.CurrentVariant.Tasks.Count)
                     {
                         await bot.SendTextMessageAsync(chatId: user.ChatId,
-                        text: "Тест окончен");
+                        text: String.Format("Тест окончен\n Верных ответов - {0}/{1}", user.CurrentVariant.correctAnswers, user.CurrentVariant.Tasks.Count));
                         Console.WriteLine("{0} удален", message.Chat.Username);
                         Program.users.Remove(user);
                         return;
@@ -123,7 +123,7 @@ namespace EGE_bot
             {
                 case @"/start":
                     await bot.SendTextMessageAsync(chatId: message.Chat.Id,
-                    text: "Выбери вариант задание", replyMarkup: Keyboard.GetStartReplyKeyboard());
+                    text: "Выбери вариант задания", replyMarkup: Keyboard.GetStartReplyKeyboard());
                     return;
                 case @"Выбор задания":
                     await bot.SendTextMessageAsync(message.Chat.Id, "Выбери номер задания!", replyMarkup: Keyboard.GetTasksKeyboard(20, 5));
